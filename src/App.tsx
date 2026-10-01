@@ -17,11 +17,18 @@ import markdown from '../asset/sample.md?raw'
 
 import './App.css'
 
+// 首部的 frontmatter 不是 Markdown（CommonMark 里没有这个语法），
+// 所以要在交给 react-markdown 之前自己剥掉。逐段解释见 README。
+const FRONTMATTER = /^\uFEFF?---[ \t]*\r?\n[\s\S]*?\r?\n---[ \t]*(?:\r?\n|$)/
+
 export default function App() {
+  // 只影响喂给解析器的字符串；markdown 原文件本身没有被改动
+  const body = markdown.replace(FRONTMATTER, '')
+
   return (
     <div className="page">
       {/* children 就是 markdown 字符串本身 */}
-      <ReactMarkdown>{markdown}</ReactMarkdown>
+      <ReactMarkdown>{body}</ReactMarkdown>
     </div>
   )
 }
