@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://localhost:5173/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="module">import { injectIntoGlobalHook } from "/@react-refresh";
+injectIntoGlobalHook(window);
+window.$RefreshReg$ = () => {};
+window.$RefreshSig$ = () => (type) => type;</script>
+
+    <script type="module" src="./v3 sanitize (e6df9e7)_files/client"></script>
+
+    
+    <link rel="icon" type="image/svg+xml" href="http://localhost:5173/favicon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>markdown-splitter</title>
+  <style type="text/css" data-vite-dev-id="/Users/refone/Coding/Markdown-Tools/src/index.css">/* ==========================================================================
+   全局重置。注意：Vite 模板自带的 index.css 会把页面当成「宣传页」来排版
+   （#root 固定 1126px、h1 56px、p{margin:0}、code 变成 inline-flex…），
+   那些规则会和 Markdown 自己的排版打架，所以这里清成了最小的一套。
+   ========================================================================== */
+
+:root {
+  --text: #1f2328;
+  --muted: #6b6375;
+  --bg: #ffffff;
+  --border: #e5e4e7;
+  --code-bg: #f4f3ec;
+  --surface: #f7f7f9;
+  --link: #6d28d9;
+  --accent: #7c3aed;
+  --accent-bg: rgba(124, 58, 237, 0.12);
+
+  /* 代码高亮配色（highlight.js 的 token 类名） */
+  --hl-comment: #a0a1a7;
+  --hl-keyword: #a626a4;
+  --hl-string: #50a14f;
+  --hl-number: #986801;
+  --hl-function: #4078f2;
+  --hl-type: #c18401;
+  --hl-variable: #e45649;
+
+  font-family: system-ui, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #e6e6ea;
+    --muted: #9ca3af;
+    --bg: #16171d;
+    --border: #2e303a;
+    --code-bg: #1f2028;
+    --surface: #1b1d24;
+    --link: #c084fc;
+    --accent: #c084fc;
+    --accent-bg: rgba(192, 132, 252, 0.16);
+
+    --hl-comment: #7f848e;
+    --hl-keyword: #c678dd;
+    --hl-string: #98c379;
+    --hl-number: #d19a66;
+    --hl-function: #61afef;
+    --hl-type: #e5c07b;
+    --hl-variable: #e06c75;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+</style><style type="text/css" data-vite-dev-id="/Users/refone/Coding/Markdown-Tools/node_modules/katex/dist/katex.min.css">@font-face{font-display:block;font-family:KaTeX_AMS;font-style:normal;font-weight:400;src:url(/node_modules/katex/dist/fonts/KaTeX_AMS-Regular.woff2) format("woff2"),url(/node_modules/katex/dist/fonts/KaTeX_AMS-Regular.woff) format("woff"),url(/node_modules/katex/dist/fonts/KaTeX_AMS-Regular.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Caligraphic;font-style:normal;font-weight:700;src:url(/node_modules/katex/dist/fonts/KaTeX_Caligraphic-Bold.woff2) format("woff2"),url(/node_modules/katex/dist/fonts/KaTeX_Caligraphic-Bold.woff) format("woff"),url(/node_modules/katex/dist/fonts/KaTeX_Caligraphic-Bold.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Caligraphic;font-style:normal;font-weight:400;src:url(/node_modules/katex/dist/fonts/KaTeX_Caligraphic-Regular.woff2) format("woff2"),url(/node_modules/katex/dist/fonts/KaTeX_Caligraphic-Regular.woff) format("woff"),url(/node_modules/katex/dist/fonts/KaTeX_Caligraphic-Regular.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Fraktur;font-style:normal;font-weight:700;src:url(/node_modules/katex/dist/fonts/KaTeX_Fraktur-Bold.woff2) format("woff2"),url(/node_modules/katex/dist/fonts/KaTeX_Fraktur-Bold.woff) format("woff"),url(/node_modules/katex/dist/fonts/KaTeX_Fraktur-Bold.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Fraktur;font-style:normal;font-weight:400;src:url(/node_modules/katex/dist/fonts/KaTeX_Fraktur-Regular.woff2) format("woff2"),url(/node_modules/katex/dist/fonts/KaTeX_Fraktur-Regular.woff) format("woff"),url(/node_modules/katex/dist/fonts/KaTeX_Fraktur-Regular.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Main;font-style:normal;font-weight:700;src:url(/node_modules/katex/dist/fonts/KaTeX_Main-Bold.woff2) format("woff2"),url(/node_modules/katex/dist/fonts/KaTeX_Main-Bold.woff) format("woff"),url(/node_modules/katex/dist/fonts/KaTeX_Main-Bold.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Main;font-style:italic;font-weight:700;src:url(/node_modules/katex/dist/fonts/KaTeX_Main-BoldItalic.woff2) format("woff2"),url(/node_modules/katex/dist/fonts/KaTeX_Main-BoldItalic.woff) format("woff"),url(/node_modules/katex/dist/fonts/KaTeX_Main-BoldItalic.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Main;font-style:italic;font-weight:400;src:url(/node_modules/katex/dist/fonts/KaTeX_Main-Italic.woff2) format("woff2"),url(/node_modules/katex/dist/fonts/KaTeX_Main-Italic.woff) format("woff"),url(/node_modules/katex/dist/fonts/KaTeX_Main-Italic.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Main;font-style:normal;font-weight:400;src:url(/node_modules/katex/dist/fonts/KaTeX_Main-Regular.woff2) format("woff2"),url(/node_modules/katex/dist/fonts/KaTeX_Main-Regular.woff) format("woff"),url(/node_modules/katex/dist/fonts/KaTeX_Main-Regular.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Math;font-style:italic;font-weight:700;src:url(/node_modules/katex/dist/fonts/KaTeX_Math-BoldItalic.woff2) format("woff2"),url(/node_modules/katex/dist/fonts/KaTeX_Math-BoldItalic.woff) format("woff"),url(/node_modules/katex/dist/fonts/KaTeX_Math-BoldItalic.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Math;font-style:italic;font-weight:400;src:url(/node_modules/katex/dist/fonts/KaTeX_Math-Italic.woff2) format("woff2"),url(/node_modules/katex/dist/fonts/KaTeX_Math-Italic.woff) format("woff"),url(/node_modules/katex/dist/fonts/KaTeX_Math-Italic.ttf) format("truetype")}@font-face{font-display:block;font-family:"KaTeX_SansSerif";font-style:normal;font-weight:700;src:url(/node_modules/katex/dist/fonts/KaTeX_SansSerif-Bold.woff2) format("woff2"),url(/node_modules/katex/dist/fonts/KaTeX_SansSerif-Bold.woff) format("woff"),url(/node_modules/katex/dist/fonts/KaTeX_SansSerif-Bold.ttf) format("truetype")}@font-face{font-display:block;font-family:"KaTeX_SansSerif";font-style:italic;font-weight:400;src:url(/node_modules/katex/dist/fonts/KaTeX_SansSerif-Italic.woff2) format("woff2"),url(/node_modules/katex/dist/fonts/KaTeX_SansSerif-Italic.woff) format("woff"),url(/node_modules/katex/dist/fonts/KaTeX_SansSerif-Italic.ttf) format("truetype")}@font-face{font-display:block;font-family:"KaTeX_SansSerif";font-style:normal;font-weight:400;src:url(/node_modules/katex/dist/fonts/KaTeX_SansSerif-Regular.woff2) format("woff2"),url(/node_modules/katex/dist/fonts/KaTeX_SansSerif-Regular.woff) format("woff"),url(/node_modules/katex/dist/fonts/KaTeX_SansSerif-Regular.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Script;font-style:normal;font-weight:400;src:url(/node_modules/katex/dist/fonts/KaTeX_Script-Regular.woff2) format("woff2"),url(/node_modules/katex/dist/fonts/KaTeX_Script-Regular.woff) format("woff"),url(/node_modules/katex/dist/fonts/KaTeX_Script-Regular.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Size1;font-style:normal;font-weight:400;src:url(/node_modules/katex/dist/fonts/KaTeX_Size1-Regular.woff2) format("woff2"),url(/node_modules/katex/dist/fonts/KaTeX_Size1-Regular.woff) format("woff"),url(/node_modules/katex/dist/fonts/KaTeX_Size1-Regular.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Size2;font-style:normal;font-weight:400;src:url(/node_modules/katex/dist/fonts/KaTeX_Size2-Regular.woff2) format("woff2"),url(/node_modules/katex/dist/fonts/KaTeX_Size2-Regular.woff) format("woff"),url(/node_modules/katex/dist/fonts/KaTeX_Size2-Regular.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Size3;font-style:normal;font-weight:400;src:url(/node_modules/katex/dist/fonts/KaTeX_Size3-Regular.woff2) format("woff2"),url(/node_modules/katex/dist/fonts/KaTeX_Size3-Regular.woff) format("woff"),url(/node_modules/katex/dist/fonts/KaTeX_Size3-Regular.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Size4;font-style:normal;font-weight:400;src:url(/node_modules/katex/dist/fonts/KaTeX_Size4-Regular.woff2) format("woff2"),url(/node_modules/katex/dist/fonts/KaTeX_Size4-Regular.woff) format("woff"),url(/node_modules/katex/dist/fonts/KaTeX_Size4-Regular.ttf) format("truetype")}@font-face{font-display:block;font-family:KaTeX_Typewriter;font-style:normal;font-weight:400;src:url(/node_modules/katex/dist/fonts/KaTeX_Typewriter-Regular.woff2) format("woff2"),url(/node_modules/katex/dist/fonts/KaTeX_Typewriter-Regular.woff) format("woff"),url(/node_modules/katex/dist/fonts/KaTeX_Typewriter-Regular.ttf) format("truetype")}.katex{font:normal 1.21em KaTeX_Main,math,Times New Roman,serif;line-height:1.2;position:relative;text-indent:0;text-rendering:auto}.katex *{-ms-high-contrast-adjust:none!important;border-color:currentColor}.katex .katex-version:after{content:"0.18.10"}.katex .katex-mathml{border:0;-webkit-clip-path:inset(50%);clip-path:inset(50%);height:1px;overflow:hidden;padding:0;position:absolute;width:1px}.katex .katex-html>.katex-newline{display:block}.katex .katex-base{position:relative;white-space:nowrap;width:-webkit-min-content;width:-moz-min-content;width:min-content}.katex .katex-base,.katex .katex-strut{display:inline-block}.katex .textbf{font-weight:700}.katex .textit{font-style:italic}.katex .textrm{font-family:KaTeX_Main}.katex .textsf{font-family:KaTeX_SansSerif}.katex .texttt{font-family:KaTeX_Typewriter}.katex .mathnormal{font-family:KaTeX_Math;font-style:italic}.katex .mathit{font-family:KaTeX_Main;font-style:italic}.katex .mathrm{font-style:normal}.katex .mathbf{font-family:KaTeX_Main;font-weight:700}.katex .boldsymbol{font-family:KaTeX_Math;font-style:italic;font-weight:700}.katex .amsrm,.katex .mathbb,.katex .textbb{font-family:KaTeX_AMS}.katex .mathcal{font-family:KaTeX_Caligraphic}.katex .mathfrak,.katex .textfrak{font-family:KaTeX_Fraktur}.katex .mathboldfrak,.katex .textboldfrak{font-family:KaTeX_Fraktur;font-weight:700}.katex .mathtt{font-family:KaTeX_Typewriter}.katex .mathscr,.katex .textscr{font-family:KaTeX_Script}.katex .mathsf,.katex .textsf{font-family:KaTeX_SansSerif}.katex .mathboldsf,.katex .textboldsf{font-family:KaTeX_SansSerif;font-weight:700}.katex .mathitsf,.katex .mathsfit,.katex .textitsf{font-family:KaTeX_SansSerif;font-style:italic}.katex .mainrm{font-family:KaTeX_Main;font-style:normal}.katex .vlist-t{border-collapse:collapse;display:inline-table;table-layout:fixed}.katex .vlist-r{display:table-row}.katex .vlist{display:table-cell;position:relative;vertical-align:bottom}.katex .vlist>span{display:block;height:0;position:relative}.katex .vlist>span>span{display:inline-block}.katex .vlist>span>.pstrut{overflow:hidden;width:0}.katex .vlist-t2{margin-right:-2px}.katex .vlist-s{display:table-cell;font-size:1px;min-width:2px;vertical-align:bottom;width:2px}.katex .katex-vbox{align-items:baseline;display:inline-flex;flex-direction:column}.katex .katex-thinbox{display:inline-flex;flex-direction:row;max-width:0;width:0}.katex .msupsub{text-align:left}.katex .mfrac>span>span{text-align:center}.katex .mfrac .frac-line{border-bottom-style:solid;display:inline-block;width:100%}.katex .katex-hdashline,.katex .katex-hline,.katex .katex-overline .overline-line,.katex .katex-rule,.katex .katex-underline .underline-line,.katex .mfrac .frac-line{min-height:1px}.katex .mspace{display:inline-block}.katex .katex-smash{display:inline;line-height:0}.katex .clap,.katex .llap,.katex .rlap{position:relative;width:0}.katex .clap>.katex-inner,.katex .llap>.katex-inner,.katex .rlap>.katex-inner{position:absolute}.katex .clap>.katex-fix,.katex .llap>.katex-fix,.katex .rlap>.katex-fix{display:inline-block}.katex .llap>.katex-inner{right:0}.katex .clap>.katex-inner,.katex .rlap>.katex-inner{left:0}.katex .clap>.katex-inner>span{margin-left:-50%;margin-right:50%}.katex .katex-rule{border:0 solid;display:inline-block;position:relative}.katex .katex-hline,.katex .katex-overline .overline-line,.katex .katex-underline .underline-line{border-bottom-style:solid;display:inline-block;width:100%}.katex .katex-hdashline{border-bottom-style:dashed;display:inline-block;width:100%}.katex .sqrt>.katex-root{margin-left:.2777777778em;margin-right:-.5555555556em}.katex .fontsize-ensurer.reset-size1.size1,.katex .katex-sizing.reset-size1.size1{font-size:1em}.katex .fontsize-ensurer.reset-size1.size2,.katex .katex-sizing.reset-size1.size2{font-size:1.2em}.katex .fontsize-ensurer.reset-size1.size3,.katex .katex-sizing.reset-size1.size3{font-size:1.4em}.katex .fontsize-ensurer.reset-size1.size4,.katex .katex-sizing.reset-size1.size4{font-size:1.6em}.katex .fontsize-ensurer.reset-size1.size5,.katex .katex-sizing.reset-size1.size5{font-size:1.8em}.katex .fontsize-ensurer.reset-size1.size6,.katex .katex-sizing.reset-size1.size6{font-size:2em}.katex .fontsize-ensurer.reset-size1.size7,.katex .katex-sizing.reset-size1.size7{font-size:2.4em}.katex .fontsize-ensurer.reset-size1.size8,.katex .katex-sizing.reset-size1.size8{font-size:2.88em}.katex .fontsize-ensurer.reset-size1.size9,.katex .katex-sizing.reset-size1.size9{font-size:3.456em}.katex .fontsize-ensurer.reset-size1.size10,.katex .katex-sizing.reset-size1.size10{font-size:4.148em}.katex .fontsize-ensurer.reset-size1.size11,.katex .katex-sizing.reset-size1.size11{font-size:4.976em}.katex .fontsize-ensurer.reset-size2.size1,.katex .katex-sizing.reset-size2.size1{font-size:.8333333333em}.katex .fontsize-ensurer.reset-size2.size2,.katex .katex-sizing.reset-size2.size2{font-size:1em}.katex .fontsize-ensurer.reset-size2.size3,.katex .katex-sizing.reset-size2.size3{font-size:1.1666666667em}.katex .fontsize-ensurer.reset-size2.size4,.katex .katex-sizing.reset-size2.size4{font-size:1.3333333333em}.katex .fontsize-ensurer.reset-size2.size5,.katex .katex-sizing.reset-size2.size5{font-size:1.5em}.katex .fontsize-ensurer.reset-size2.size6,.katex .katex-sizing.reset-size2.size6{font-size:1.6666666667em}.katex .fontsize-ensurer.reset-size2.size7,.katex .katex-sizing.reset-size2.size7{font-size:2em}.katex .fontsize-ensurer.reset-size2.size8,.katex .katex-sizing.reset-size2.size8{font-size:2.4em}.katex .fontsize-ensurer.reset-size2.size9,.katex .katex-sizing.reset-size2.size9{font-size:2.88em}.katex .fontsize-ensurer.reset-size2.size10,.katex .katex-sizing.reset-size2.size10{font-size:3.4566666667em}.katex .fontsize-ensurer.reset-size2.size11,.katex .katex-sizing.reset-size2.size11{font-size:4.1466666667em}.katex .fontsize-ensurer.reset-size3.size1,.katex .katex-sizing.reset-size3.size1{font-size:.7142857143em}.katex .fontsize-ensurer.reset-size3.size2,.katex .katex-sizing.reset-size3.size2{font-size:.8571428571em}.katex .fontsize-ensurer.reset-size3.size3,.katex .katex-sizing.reset-size3.size3{font-size:1em}.katex .fontsize-ensurer.reset-size3.size4,.katex .katex-sizing.reset-size3.size4{font-size:1.1428571429em}.katex .fontsize-ensurer.reset-size3.size5,.katex .katex-sizing.reset-size3.size5{font-size:1.2857142857em}.katex .fontsize-ensurer.reset-size3.size6,.katex .katex-sizing.reset-size3.size6{font-size:1.4285714286em}.katex .fontsize-ensurer.reset-size3.size7,.katex .katex-sizing.reset-size3.size7{font-size:1.7142857143em}.katex .fontsize-ensurer.reset-size3.size8,.katex .katex-sizing.reset-size3.size8{font-size:2.0571428571em}.katex .fontsize-ensurer.reset-size3.size9,.katex .katex-sizing.reset-size3.size9{font-size:2.4685714286em}.katex .fontsize-ensurer.reset-size3.size10,.katex .katex-sizing.reset-size3.size10{font-size:2.9628571429em}.katex .fontsize-ensurer.reset-size3.size11,.katex .katex-sizing.reset-size3.size11{font-size:3.5542857143em}.katex .fontsize-ensurer.reset-size4.size1,.katex .katex-sizing.reset-size4.size1{font-size:.625em}.katex .fontsize-ensurer.reset-size4.size2,.katex .katex-sizing.reset-size4.size2{font-size:.75em}.katex .fontsize-ensurer.reset-size4.size3,.katex .katex-sizing.reset-size4.size3{font-size:.875em}.katex .fontsize-ensurer.reset-size4.size4,.katex .katex-sizing.reset-size4.size4{font-size:1em}.katex .fontsize-ensurer.reset-size4.size5,.katex .katex-sizing.reset-size4.size5{font-size:1.125em}.katex .fontsize-ensurer.reset-size4.size6,.katex .katex-sizing.reset-size4.size6{font-size:1.25em}.katex .fontsize-ensurer.reset-size4.size7,.katex .katex-sizing.reset-size4.size7{font-size:1.5em}.katex .fontsize-ensurer.reset-size4.size8,.katex .katex-sizing.reset-size4.size8{font-size:1.8em}.katex .fontsize-ensurer.reset-size4.size9,.katex .katex-sizing.reset-size4.size9{font-size:2.16em}.katex .fontsize-ensurer.reset-size4.size10,.katex .katex-sizing.reset-size4.size10{font-size:2.5925em}.katex .fontsize-ensurer.reset-size4.size11,.katex .katex-sizing.reset-size4.size11{font-size:3.11em}.katex .fontsize-ensurer.reset-size5.size1,.katex .katex-sizing.reset-size5.size1{font-size:.5555555556em}.katex .fontsize-ensurer.reset-size5.size2,.katex .katex-sizing.reset-size5.size2{font-size:.6666666667em}.katex .fontsize-ensurer.reset-size5.size3,.katex .katex-sizing.reset-size5.size3{font-size:.7777777778em}.katex .fontsize-ensurer.reset-size5.size4,.katex .katex-sizing.reset-size5.size4{font-size:.8888888889em}.katex .fontsize-ensurer.reset-size5.size5,.katex .katex-sizing.reset-size5.size5{font-size:1em}.katex .fontsize-ensurer.reset-size5.size6,.katex .katex-sizing.reset-size5.size6{font-size:1.1111111111em}.katex .fontsize-ensurer.reset-size5.size7,.katex .katex-sizing.reset-size5.size7{font-size:1.3333333333em}.katex .fontsize-ensurer.reset-size5.size8,.katex .katex-sizing.reset-size5.size8{font-size:1.6em}.katex .fontsize-ensurer.reset-size5.size9,.katex .katex-sizing.reset-size5.size9{font-size:1.92em}.katex .fontsize-ensurer.reset-size5.size10,.katex .katex-sizing.reset-size5.size10{font-size:2.3044444444em}.katex .fontsize-ensurer.reset-size5.size11,.katex .katex-sizing.reset-size5.size11{font-size:2.7644444444em}.katex .fontsize-ensurer.reset-size6.size1,.katex .katex-sizing.reset-size6.size1{font-size:.5em}.katex .fontsize-ensurer.reset-size6.size2,.katex .katex-sizing.reset-size6.size2{font-size:.6em}.katex .fontsize-ensurer.reset-size6.size3,.katex .katex-sizing.reset-size6.size3{font-size:.7em}.katex .fontsize-ensurer.reset-size6.size4,.katex .katex-sizing.reset-size6.size4{font-size:.8em}.katex .fontsize-ensurer.reset-size6.size5,.katex .katex-sizing.reset-size6.size5{font-size:.9em}.katex .fontsize-ensurer.reset-size6.size6,.katex .katex-sizing.reset-size6.size6{font-size:1em}.katex .fontsize-ensurer.reset-size6.size7,.katex .katex-sizing.reset-size6.size7{font-size:1.2em}.katex .fontsize-ensurer.reset-size6.size8,.katex .katex-sizing.reset-size6.size8{font-size:1.44em}.katex .fontsize-ensurer.reset-size6.size9,.katex .katex-sizing.reset-size6.size9{font-size:1.728em}.katex .fontsize-ensurer.reset-size6.size10,.katex .katex-sizing.reset-size6.size10{font-size:2.074em}.katex .fontsize-ensurer.reset-size6.size11,.katex .katex-sizing.reset-size6.size11{font-size:2.488em}.katex .fontsize-ensurer.reset-size7.size1,.katex .katex-sizing.reset-size7.size1{font-size:.4166666667em}.katex .fontsize-ensurer.reset-size7.size2,.katex .katex-sizing.reset-size7.size2{font-size:.5em}.katex .fontsize-ensurer.reset-size7.size3,.katex .katex-sizing.reset-size7.size3{font-size:.5833333333em}.katex .fontsize-ensurer.reset-size7.size4,.katex .katex-sizing.reset-size7.size4{font-size:.6666666667em}.katex .fontsize-ensurer.reset-size7.size5,.katex .katex-sizing.reset-size7.size5{font-size:.75em}.katex .fontsize-ensurer.reset-size7.size6,.katex .katex-sizing.reset-size7.size6{font-size:.8333333333em}.katex .fontsize-ensurer.reset-size7.size7,.katex .katex-sizing.reset-size7.size7{font-size:1em}.katex .fontsize-ensurer.reset-size7.size8,.katex .katex-sizing.reset-size7.size8{font-size:1.2em}.katex .fontsize-ensurer.reset-size7.size9,.katex .katex-sizing.reset-size7.size9{font-size:1.44em}.katex .fontsize-ensurer.reset-size7.size10,.katex .katex-sizing.reset-size7.size10{font-size:1.7283333333em}.katex .fontsize-ensurer.reset-size7.size11,.katex .katex-sizing.reset-size7.size11{font-size:2.0733333333em}.katex .fontsize-ensurer.reset-size8.size1,.katex .katex-sizing.reset-size8.size1{font-size:.3472222222em}.katex .fontsize-ensurer.reset-size8.size2,.katex .katex-sizing.reset-size8.size2{font-size:.4166666667em}.katex .fontsize-ensurer.reset-size8.size3,.katex .katex-sizing.reset-size8.size3{font-size:.4861111111em}.katex .fontsize-ensurer.reset-size8.size4,.katex .katex-sizing.reset-size8.size4{font-size:.5555555556em}.katex .fontsize-ensurer.reset-size8.size5,.katex .katex-sizing.reset-size8.size5{font-size:.625em}.katex .fontsize-ensurer.reset-size8.size6,.katex .katex-sizing.reset-size8.size6{font-size:.6944444444em}.katex .fontsize-ensurer.reset-size8.size7,.katex .katex-sizing.reset-size8.size7{font-size:.8333333333em}.katex .fontsize-ensurer.reset-size8.size8,.katex .katex-sizing.reset-size8.size8{font-size:1em}.katex .fontsize-ensurer.reset-size8.size9,.katex .katex-sizing.reset-size8.size9{font-size:1.2em}.katex .fontsize-ensurer.reset-size8.size10,.katex .katex-sizing.reset-size8.size10{font-size:1.4402777778em}.katex .fontsize-ensurer.reset-size8.size11,.katex .katex-sizing.reset-size8.size11{font-size:1.7277777778em}.katex .fontsize-ensurer.reset-size9.size1,.katex .katex-sizing.reset-size9.size1{font-size:.2893518519em}.katex .fontsize-ensurer.reset-size9.size2,.katex .katex-sizing.reset-size9.size2{font-size:.3472222222em}.katex .fontsize-ensurer.reset-size9.size3,.katex .katex-sizing.reset-size9.size3{font-size:.4050925926em}.katex .fontsize-ensurer.reset-size9.size4,.katex .katex-sizing.reset-size9.size4{font-size:.462962963em}.katex .fontsize-ensurer.reset-size9.size5,.katex .katex-sizing.reset-size9.size5{font-size:.5208333333em}.katex .fontsize-ensurer.reset-size9.size6,.katex .katex-sizing.reset-size9.size6{font-size:.5787037037em}.katex .fontsize-ensurer.reset-size9.size7,.katex .katex-sizing.reset-size9.size7{font-size:.6944444444em}.katex .fontsize-ensurer.reset-size9.size8,.katex .katex-sizing.reset-size9.size8{font-size:.8333333333em}.katex .fontsize-ensurer.reset-size9.size9,.katex .katex-sizing.reset-size9.size9{font-size:1em}.katex .fontsize-ensurer.reset-size9.size10,.katex .katex-sizing.reset-size9.size10{font-size:1.2002314815em}.katex .fontsize-ensurer.reset-size9.size11,.katex .katex-sizing.reset-size9.size11{font-size:1.4398148148em}.katex .fontsize-ensurer.reset-size10.size1,.katex .katex-sizing.reset-size10.size1{font-size:.2410800386em}.katex .fontsize-ensurer.reset-size10.size2,.katex .katex-sizing.reset-size10.size2{font-size:.2892960463em}.katex .fontsize-ensurer.reset-size10.size3,.katex .katex-sizing.reset-size10.size3{font-size:.337512054em}.katex .fontsize-ensurer.reset-size10.size4,.katex .katex-sizing.reset-size10.size4{font-size:.3857280617em}.katex .fontsize-ensurer.reset-size10.size5,.katex .katex-sizing.reset-size10.size5{font-size:.4339440694em}.katex .fontsize-ensurer.reset-size10.size6,.katex .katex-sizing.reset-size10.size6{font-size:.4821600771em}.katex .fontsize-ensurer.reset-size10.size7,.katex .katex-sizing.reset-size10.size7{font-size:.5785920926em}.katex .fontsize-ensurer.reset-size10.size8,.katex .katex-sizing.reset-size10.size8{font-size:.6943105111em}.katex .fontsize-ensurer.reset-size10.size9,.katex .katex-sizing.reset-size10.size9{font-size:.8331726133em}.katex .fontsize-ensurer.reset-size10.size10,.katex .katex-sizing.reset-size10.size10{font-size:1em}.katex .fontsize-ensurer.reset-size10.size11,.katex .katex-sizing.reset-size10.size11{font-size:1.1996142719em}.katex .fontsize-ensurer.reset-size11.size1,.katex .katex-sizing.reset-size11.size1{font-size:.2009646302em}.katex .fontsize-ensurer.reset-size11.size2,.katex .katex-sizing.reset-size11.size2{font-size:.2411575563em}.katex .fontsize-ensurer.reset-size11.size3,.katex .katex-sizing.reset-size11.size3{font-size:.2813504823em}.katex .fontsize-ensurer.reset-size11.size4,.katex .katex-sizing.reset-size11.size4{font-size:.3215434084em}.katex .fontsize-ensurer.reset-size11.size5,.katex .katex-sizing.reset-size11.size5{font-size:.3617363344em}.katex .fontsize-ensurer.reset-size11.size6,.katex .katex-sizing.reset-size11.size6{font-size:.4019292605em}.katex .fontsize-ensurer.reset-size11.size7,.katex .katex-sizing.reset-size11.size7{font-size:.4823151125em}.katex .fontsize-ensurer.reset-size11.size8,.katex .katex-sizing.reset-size11.size8{font-size:.578778135em}.katex .fontsize-ensurer.reset-size11.size9,.katex .katex-sizing.reset-size11.size9{font-size:.6945337621em}.katex .fontsize-ensurer.reset-size11.size10,.katex .katex-sizing.reset-size11.size10{font-size:.8336012862em}.katex .fontsize-ensurer.reset-size11.size11,.katex .katex-sizing.reset-size11.size11{font-size:1em}.katex .delimsizing.size1{font-family:KaTeX_Size1}.katex .delimsizing.size2{font-family:KaTeX_Size2}.katex .delimsizing.size3{font-family:KaTeX_Size3}.katex .delimsizing.size4{font-family:KaTeX_Size4}.katex .delimsizing.mult .delim-size1>span{font-family:KaTeX_Size1}.katex .delimsizing.mult .delim-size4>span{font-family:KaTeX_Size4}.katex .nulldelimiter{display:inline-block;width:.12em}.katex .delimcenter,.katex .op-symbol{position:relative}.katex .op-symbol.small-op{font-family:KaTeX_Size1}.katex .op-symbol.large-op{font-family:KaTeX_Size2}.katex .katex-accent>.vlist-t,.katex .op-limits>.vlist-t{text-align:center}.katex .katex-accent .accent-body{position:relative}.katex .katex-accent .accent-body:not(.accent-full){width:0}.katex .katex-overlay{display:block}.katex .mtable .vertical-separator{display:inline-block;min-width:1px}.katex .mtable .arraycolsep{display:inline-block}.katex .mtable .col-align-c>.vlist-t{text-align:center}.katex .mtable .col-align-l>.vlist-t{text-align:left}.katex .mtable .col-align-r>.vlist-t{text-align:right}.katex .svg-align{text-align:left}.katex svg{fill:currentColor;stroke:currentColor;display:block;height:inherit;position:absolute;width:100%}.katex svg path{stroke:none}.katex svg{fill-rule:nonzero;fill-opacity:1;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1}.katex img{border-style:none;max-height:none;max-width:none;min-height:0;min-width:0}.katex .katex-stretchy{display:block;overflow:hidden;position:relative;width:100%}.katex .katex-stretchy:after,.katex .katex-stretchy:before{content:""}.katex .hide-tail{overflow:hidden;position:relative;width:100%}.katex .halfarrow-left{left:0;overflow:hidden;position:absolute;width:50.2%}.katex .halfarrow-right{overflow:hidden;position:absolute;right:0;width:50.2%}.katex .brace-left{left:0;overflow:hidden;position:absolute;width:25.1%}.katex .brace-center{left:25%;overflow:hidden;position:absolute;width:50%}.katex .brace-right{overflow:hidden;position:absolute;right:0;width:25.1%}.katex .x-arrow-pad{padding:0 .5em}.katex .cd-arrow-pad{padding:0 .55556em 0 .27778em}.katex .mover,.katex .munder,.katex .x-arrow{text-align:center}.katex .boxpad{padding:0 .3em}.katex .fbox,.katex .fcolorbox{border:.04em solid;box-sizing:border-box}.katex .cancel-pad{padding:0 .2em}.katex .cancel-lap{margin-left:-.2em;margin-right:-.2em}.katex .katex-sout{border-bottom-style:solid;border-bottom-width:.08em}.katex .angl{border-right:.049em solid;border-top:.049em solid;box-sizing:border-box;margin-right:.03889em}.katex .anglpad{padding:0 .03889em}.katex .reflectbox{display:inline-block;transform:scaleX(-1)}.katex .eqn-num:before{content:"(" counter(katexEqnNo) ")";counter-increment:katexEqnNo}.katex .mml-eqn-num:before{content:"(" counter(mmlEqnNo) ")";counter-increment:mmlEqnNo}.katex .mtr-glue{width:50%}.katex .cd-vert-arrow{display:inline-block;position:relative}.katex .cd-label-left{display:inline-block;position:absolute;right:calc(50% + .3em);text-align:left}.katex .cd-label-right{display:inline-block;left:calc(50% + .3em);position:absolute;text-align:right}.katex-display{display:block;margin:1em 0;text-align:center}.katex-display>.katex{display:block;text-align:center;white-space:nowrap}.katex-display>.katex>.katex-html{display:block;position:relative}.katex-display>.katex>.katex-html>.katex-tag{position:absolute;right:0}.katex-display.leqno>.katex>.katex-html>.katex-tag{left:0;right:auto}.katex-display.fleqn>.katex{padding-left:2em;text-align:left}body{counter-reset:katexEqnNo mmlEqnNo}
+</style><style type="text/css" data-vite-dev-id="/Users/refone/Coding/Markdown-Tools/src/App.css">/* ==========================================================================
+   这里只有「让渲染结果好读」的样式，跟 markdown 的解析逻辑无关。
+   颜色统一走 index.css 里的 CSS 变量，所以深浅色主题自动适配。
+   ========================================================================== */
+
+.page {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 40px 24px 96px;
+}
+
+/* 标题 */
+.page h1,
+.page h2,
+.page h3,
+.page h4,
+.page h5,
+.page h6 {
+  margin: 1.6em 0 0.6em;
+  line-height: 1.3;
+}
+
+.page h1 {
+  font-size: 1.9em;
+}
+
+.page h2 {
+  font-size: 1.5em;
+}
+
+.page h3 {
+  font-size: 1.2em;
+}
+
+/* 段落、列表、引用、代码块之间的间距 */
+.page p,
+.page ul,
+.page ol,
+.page blockquote,
+.page pre {
+  margin: 0 0 1em;
+}
+
+.page ul,
+.page ol {
+  padding-left: 1.5em;
+}
+
+.page a {
+  color: var(--link);
+}
+
+.page blockquote {
+  margin-inline: 0;
+  padding-left: 1em;
+  border-left: 3px solid var(--border);
+  color: var(--muted);
+}
+
+.page blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+/* 行内代码与代码块 */
+.page code {
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  background: var(--code-bg);
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.9em;
+}
+
+.page pre {
+  padding: 14px 16px;
+  border-radius: 8px;
+  background: var(--code-bg);
+  overflow-x: auto;
+}
+
+.page pre code {
+  padding: 0;
+  background: none;
+  font-size: 0.875em;
+}
+
+.page img {
+  max-width: 100%;
+}
+
+.page hr {
+  margin: 2em 0;
+  border: 0;
+  border-top: 1px solid var(--border);
+}
+
+/* ---------- 下面这几块样式，对应各自插件的输出 ---------- */
+
+/* remark-gfm：表格 */
+.page table {
+  margin: 0 0 1em;
+  border-collapse: collapse;
+  font-size: 0.95em;
+}
+
+.page th,
+.page td {
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+}
+
+.page th {
+  background: var(--code-bg);
+  text-align: left;
+}
+
+.page tbody tr:nth-child(2n) {
+  background: var(--surface);
+}
+
+/* remark-gfm：任务列表（- [ ] 渲染成 <ul class="contains-task-list">） */
+.page .contains-task-list {
+  padding-left: 0.2em;
+  list-style: none;
+}
+
+.page .task-list-item > input[type='checkbox'] {
+  margin-right: 0.5em;
+  vertical-align: -0.15em;
+  accent-color: var(--accent);
+}
+
+/* remark-gfm：脚注区 */
+.page .footnotes {
+  margin-top: 2.5em;
+  padding-top: 1em;
+  border-top: 1px solid var(--border);
+  font-size: 0.9em;
+  color: var(--muted);
+}
+
+.page .footnotes h2 {
+  font-size: 1em;
+  border: 0;
+}
+
+.page [data-footnote-ref] {
+  padding: 0 0.15em;
+  font-weight: 600;
+}
+
+/* rehype-raw：文档里的原生 HTML 标签 */
+.page details {
+  margin-bottom: 1em;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.page summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.page details[open] summary {
+  margin-bottom: 0.6em;
+}
+
+.page mark {
+  padding: 0.1em 0.25em;
+  border-radius: 3px;
+  background: var(--accent-bg);
+  color: var(--text);
+}
+
+.page kbd {
+  padding: 0.15em 0.45em;
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.85em;
+}
+
+/* rehype-highlight：代码高亮 token 配色（颜色值见 index.css 的 --hl-* 变量） */
+.hljs {
+  color: var(--text);
+}
+
+.hljs-comment,
+.hljs-quote,
+.hljs-meta {
+  color: var(--hl-comment);
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-doctag {
+  color: var(--hl-keyword);
+}
+
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-char.escape {
+  color: var(--hl-string);
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-attr,
+.hljs-variable.constant {
+  color: var(--hl-number);
+}
+
+.hljs-title,
+.hljs-title.function_,
+.hljs-section,
+.hljs-name {
+  color: var(--hl-function);
+}
+
+.hljs-title.class_,
+.hljs-type,
+.hljs-built_in,
+.hljs-symbol,
+.hljs-bullet {
+  color: var(--hl-type);
+}
+
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-deletion {
+  color: var(--hl-variable);
+}
+
+.hljs-property,
+.hljs-params,
+.hljs-operator,
+.hljs-punctuation,
+.hljs-subst {
+  color: var(--text);
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: 600;
+}
+
+/* rehype-katex：公式，超宽时横向滚动 */
+.page .katex {
+  font-size: 1.05em;
+}
+
+.page .katex-display {
+  margin: 1em 0;
+  padding: 2px 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+</style></head>
+  <body>
+    <div id="root"><div class="page"><h1 id="markdown-渲染与切分测试文档">Markdown 渲染与切分测试文档</h1>
+<blockquote>
+<p>本文档旨在覆盖尽可能多的 Markdown 语法特性，用于测试渲染解析和 chunk 切分效果。
+包含：标题、段落、强调、列表、表格、代码块、引用、链接、图片、HTML、脚注、数学公式等。</p>
+</blockquote>
+<h2 id="目录">目录</h2>
+<ul>
+<li><a href="http://localhost:5173/#1-%E6%A0%87%E9%A2%98%E5%B1%82%E7%BA%A7">1. 标题层级</a></li>
+<li><a href="http://localhost:5173/#2-%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F">2. 文本格式</a></li>
+<li><a href="http://localhost:5173/#3-%E5%88%97%E8%A1%A8">3. 列表</a></li>
+<li><a href="http://localhost:5173/#4-%E9%93%BE%E6%8E%A5%E4%B8%8E%E5%9B%BE%E7%89%87">4. 链接与图片</a></li>
+<li><a href="http://localhost:5173/#5-%E4%BB%A3%E7%A0%81">5. 代码</a></li>
+<li><a href="http://localhost:5173/#6-%E8%A1%A8%E6%A0%BC">6. 表格</a></li>
+<li><a href="http://localhost:5173/#7-%E5%BC%95%E7%94%A8">7. 引用</a></li>
+<li><a href="http://localhost:5173/#8-html-%E4%B8%8E%E7%89%B9%E6%AE%8A%E6%A0%87%E7%AD%BE">8. HTML 与特殊标签</a></li>
+<li><a href="http://localhost:5173/#9-%E8%84%9A%E6%B3%A8%E4%B8%8E%E5%AE%9A%E4%B9%89%E5%88%97%E8%A1%A8">9. 脚注与定义列表</a></li>
+<li><a href="http://localhost:5173/#10-%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F">10. 数学公式</a></li>
+<li><a href="http://localhost:5173/#11-%E9%95%BF%E6%96%87%E6%9C%AC%E4%B8%8E%E5%88%87%E5%88%86%E6%B5%8B%E8%AF%95">11. 长文本与切分测试</a></li>
+<li><a href="http://localhost:5173/#12-%E5%85%B6%E4%BB%96%E6%9D%82%E9%A1%B9">12. 其他杂项</a></li>
+</ul>
+<hr>
+<h2 id="1-标题层级">1. 标题层级</h2>
+<h1 id="h1-一级标题">H1 一级标题</h1>
+<h2 id="h2-二级标题">H2 二级标题</h2>
+<h3 id="h3-三级标题">H3 三级标题</h3>
+<h4 id="h4-四级标题">H4 四级标题</h4>
+<h5 id="h5-五级标题">H5 五级标题</h5>
+<h6 id="h6-六级标题">H6 六级标题</h6>
+<h2 id="2-文本格式">2. 文本格式</h2>
+<p>普通段落文本。<em>斜体</em>，<strong>粗体</strong>，<strong><em>粗斜体</em></strong>，<del>删除线</del>，<code>行内代码</code>。</p>
+<p>也可以使用 HTML 标签：<u>下划线</u>，<mark>高亮</mark>，<kbd>Ctrl</kbd> + <kbd>C</kbd>，H<sub>2</sub>O，x<sup>2</sup>。</p>
+<p>转义字符：*不是斜体*，`不是代码`，[不是链接]。</p>
+<p>Emoji：:smile: :rocket: :tada: :+1: （部分解析器支持）。</p>
+<h2 id="3-列表">3. 列表</h2>
+<h3 id="无序列表">无序列表</h3>
+<ul>
+<li>项目一</li>
+<li>项目二
+<ul>
+<li>嵌套项目 A</li>
+<li>嵌套项目 B
+<ul>
+<li>更深嵌套</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>项目三</li>
+</ul>
+<h3 id="有序列表">有序列表</h3>
+<ol>
+<li>第一项</li>
+<li>第二项
+<ol>
+<li>子项 2.1</li>
+<li>子项 2.2</li>
+</ol>
+</li>
+<li>第三项</li>
+</ol>
+<h3 id="混合列表">混合列表</h3>
+<ol>
+<li>有序第一项
+<ul>
+<li>无序子项</li>
+<li>另一个无序子项</li>
+</ul>
+</li>
+<li>有序第二项
+<ol>
+<li>有序子项</li>
+<li>另一个有序子项</li>
+</ol>
+</li>
+</ol>
+<h3 id="任务列表">任务列表</h3>
+<ul class="contains-task-list">
+<li class="task-list-item"><input disabled="" type="checkbox" checked=""> 已完成任务</li>
+<li class="task-list-item"><input disabled="" type="checkbox"> 未完成任务</li>
+<li class="task-list-item"><input disabled="" type="checkbox"> 另一个未完成任务
+<ul class="contains-task-list">
+<li class="task-list-item"><input disabled="" type="checkbox" checked=""> 子任务已完成</li>
+<li class="task-list-item"><input disabled="" type="checkbox"> 子任务未完成</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-链接与图片">4. 链接与图片</h2>
+<h3 id="行内链接">行内链接</h3>
+<p><a href="https://example.com/">这是一个行内链接</a></p>
+<p><a href="https://example.com/" title="链接标题">带标题的链接</a></p>
+<h3 id="引用链接">引用链接</h3>
+<p><a href="https://example.com/ref1" title="引用链接标题">引用链接</a></p>
+<h3 id="自动链接">自动链接</h3>
+<p><a href="https://example.com/">https://example.com</a></p>
+<p><a href="mailto:test@example.com">mailto:test@example.com</a></p>
+<h3 id="图片">图片</h3>
+<p><img alt="替代文本" title="图片标题" src="./v3 sanitize (e6df9e7)_files/150"></p>
+<p><img alt="引用图片" title="引用图片标题" src="./v3 sanitize (e6df9e7)_files/150"></p>
+<h2 id="5-代码">5. 代码</h2>
+<p>行内代码：<code>const x = 1;</code></p>
+<h3 id="javascript">JavaScript</h3>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">greet</span>(<span class="hljs-params">name</span>) {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Hello, <span class="hljs-subst">${name}</span>!`</span>);
+}
+<span class="hljs-title function_">greet</span>(<span class="hljs-string">"World"</span>);
+</code></pre>
+<h3 id="typescript">TypeScript</h3>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">User</span> {
+  <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
+  <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">const</span> <span class="hljs-attr">user</span>: <span class="hljs-title class_">User</span> = { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">"Alice"</span> };
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(user);
+</code></pre>
+<h3 id="python">Python</h3>
+<pre><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">fibonacci</span>(<span class="hljs-params">n</span>):
+    a, b = <span class="hljs-number">0</span>, <span class="hljs-number">1</span>
+    <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):
+        <span class="hljs-keyword">yield</span> a
+        a, b = b, a + b
+
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">list</span>(fibonacci(<span class="hljs-number">10</span>)))
+</code></pre>
+<h3 id="bash">Bash</h3>
+<pre><code class="hljs language-bash"><span class="hljs-meta">#!/bin/bash</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"Hello, World!"</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> {1..5}; <span class="hljs-keyword">do</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">"Number: <span class="hljs-variable">$i</span>"</span>
+<span class="hljs-keyword">done</span>
+</code></pre>
+<h3 id="json">JSON</h3>
+<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"test"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"version"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"1.0.0"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"dependencies"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"react"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"^18.0.0"</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h3 id="html">HTML</h3>
+<pre><code class="hljs language-html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"en"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Test<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+<h3 id="css">CSS</h3>
+<pre><code class="hljs language-css"><span class="hljs-selector-tag">body</span> {
+  <span class="hljs-attribute">font-family</span>: Arial, sans-serif;
+  <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#f0f0f0</span>;
+}
+</code></pre>
+<h3 id="无语言代码块">无语言代码块</h3>
+<pre><code>纯文本代码块
+没有语法高亮
+</code></pre>
+<h2 id="6-表格">6. 表格</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align: left;">左对齐</th><th style="text-align: center;">居中对齐</th><th style="text-align: right;">右对齐</th></tr></thead><tbody><tr><td style="text-align: left;">单元格</td><td style="text-align: center;">单元格</td><td style="text-align: right;">单元格</td></tr><tr><td style="text-align: left;">内容</td><td style="text-align: center;">内容</td><td style="text-align: right;">内容</td></tr><tr><td style="text-align: left;">长文本内容</td><td style="text-align: center;">长文本内容</td><td style="text-align: right;">长文本内容</td></tr></tbody></table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>表头1</th><th>表头2</th><th>表头3</th></tr></thead><tbody><tr><td>A</td><td>B</td><td>C</td></tr><tr><td>D</td><td>E</td><td>F</td></tr></tbody></table>
+<h2 id="7-引用">7. 引用</h2>
+<blockquote>
+<p>这是一个单层引用。
+可以有多行。</p>
+<blockquote>
+<p>这是嵌套引用。
+嵌套引用可以包含 <strong>粗体</strong> 和 <code>代码</code>。</p>
+</blockquote>
+<p>回到第一层。</p>
+</blockquote>
+<blockquote>
+<h3 id="引用中的标题">引用中的标题</h3>
+<ul>
+<li>引用中的列表</li>
+<li>列表项二</li>
+</ul>
+<pre><code class="hljs language-js"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"引用中的代码块"</span>);
+</code></pre>
+</blockquote>
+<h2 id="8-html-与特殊标签">8. HTML 与特殊标签</h2>
+<div style="border: 1px solid red; padding: 10px;">
+  这是一个 HTML div 块。
+</div>
+<details>
+  <summary>点击展开详情</summary>
+  这里是隐藏的内容。支持 **Markdown** 吗？通常不支持，但可以包含 HTML。
+</details>
+<p align="center">居中的 HTML 段落</p>
+<p><abbr title="HyperText Markup Language">HTML</abbr></p>
+<h2 id="9-脚注与定义列表">9. 脚注与定义列表</h2>
+<p>这是一个带有脚注的句子<sup><a href="http://localhost:5173/#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref="" aria-describedby="footnote-label">1</a></sup>。这是另一个脚注<sup><a href="http://localhost:5173/#user-content-fn-note" id="user-content-fnref-note" data-footnote-ref="" aria-describedby="footnote-label">2</a></sup>。</p>
+<p>定义列表（部分解析器支持）：</p>
+<p>术语 1
+: 定义 1</p>
+<p>术语 2
+: 定义 2
+: 另一个定义</p>
+<h2 id="10-数学公式">10. 数学公式</h2>
+<p>行内公式：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>=</mo><mi>m</mi><msup><mi>c</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">E = mc^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal" style="margin-right: 0.0576em;">E</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.8141em;"></span><span class="mord mathnormal">m</span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8141em;"><span style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>。</p>
+<p>块级公式：</p>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msubsup><mo>∫</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow><mi mathvariant="normal">∞</mi></msubsup><msup><mi>e</mi><mrow><mo>−</mo><msup><mi>x</mi><mn>2</mn></msup></mrow></msup><mi>d</mi><mi>x</mi><mo>=</mo><msqrt><mi>π</mi></msqrt></mrow><annotation encoding="application/x-tex">\int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 2.3846em; vertical-align: -0.9703em;"></span><span class="mop"><span class="mop op-symbol large-op" style="margin-right: 0.4445em; position: relative; top: -0.0011em;">∫</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.4143em;"><span style="top: -1.7881em; margin-left: -0.4445em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">∞</span></span></span></span><span style="top: -3.8129em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">∞</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.9703em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 1.0369em;"><span style="top: -3.113em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight"><span class="mord mathnormal mtight">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8913em;"><span style="top: -2.931em; margin-right: 0.0714em;"><span class="pstrut" style="height: 2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span class="mord mathnormal">d</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 1.04em; vertical-align: -0.1908em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.8492em;"><span class="svg-align" style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span class="mord" style="padding-left: 0.833em;"><span class="mord mathnormal" style="margin-right: 0.0359em;">π</span></span></span><span style="top: -2.8092em;"><span class="pstrut" style="height: 3em;"></span><span class="hide-tail" style="min-width: 0.853em; height: 1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z"></path></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.1908em;"><span></span></span></span></span></span></span></span></span></span>
+<p>多行公式：</p>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mi>a</mi></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mi>b</mi><mo>+</mo><mi>c</mi></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mi>d</mi></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mi>e</mi><mo>+</mo><mi>f</mi></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+a &amp;= b + c \\
+d &amp;= e + f
+\end{aligned}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 2.7em; vertical-align: -1.1em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.6em;"><span style="top: -3.76em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord mathnormal">a</span></span></span><span style="top: -2.26em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord mathnormal">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.1em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.6em;"><span style="top: -3.76em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mord mathnormal">b</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mord mathnormal">c</span></span></span><span style="top: -2.26em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mord mathnormal">e</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mord mathnormal" style="margin-right: 0.1076em;">f</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.1em;"><span></span></span></span></span></span></span></span></span></span></span></span>
+<h2 id="11-长文本与切分测试">11. 长文本与切分测试</h2>
+<h3 id="111-段落一">11.1 段落一</h3>
+<p>在 Markdown 切分测试中，长段落是检验分块算法的重要素材。一个优秀的分块策略应当能够识别语义边界，例如标题、段落、列表、代码块等，而不是简单地在固定字符数处截断。本段文字旨在提供足够长的连续文本，以便观察切分工具是否会在句子中间断开，或者是否能够保留完整的语义单元。我们重复一些内容来增加长度：Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档，然后转换成有效的 HTML 文档。Markdown 由 John Gruber 于 2004 年创造，如今已成为世界上最流行的标记语言之一。它的设计哲学是“易读易写”，让文档在源文本状态下也具有可读性。</p>
+<h3 id="112-段落二">11.2 段落二</h3>
+<p>分块（chunking）是构建检索增强生成（RAG）系统时的关键步骤。常见的分块方法包括固定大小分块、基于句子的分块、基于段落的分块、递归分块等。对于 Markdown 文档，理想的分块应该尊重文档结构：每个标题及其下属内容可以作为一个块，代码块和表格不应被拆分，列表项应保持完整。本段继续填充文字，以确保总长度足够触发分块逻辑。我们还可以加入一些重复的句子来增加 token 数量：Markdown 支持多种扩展语法，如表格、脚注、任务列表、数学公式等。不同的解析器对这些扩展的支持程度不同，因此测试文档需要覆盖尽可能多的语法变体。</p>
+<h3 id="113-段落三">11.3 段落三</h3>
+<p>在实际应用中，分块大小通常根据嵌入模型的上下文窗口来确定。例如，对于 512 token 的模型，块大小可能在 200-400 token 之间，并保留一定的重叠。重叠有助于保持上下文连贯性，避免因截断而丢失信息。本段继续提供文本，以便测试工具如何处理长段落。我们还可以加入一些特殊字符：!@#$%^&amp;*()_+-=[]{}|;':",.&lt;&gt;/?`~，以及 Unicode 字符：你好，世界！こんにちは、世界！안녕하세요, 세계! 🌍🚀。</p>
+<h3 id="114-嵌套结构测试">11.4 嵌套结构测试</h3>
+<blockquote>
+<p>引用块中的长文本：
+这是一段很长的引用文本，用于测试分块工具是否能够正确处理引用块内部的换行和段落。引用块可以包含多个段落，每个段落之间用空行分隔。</p>
+<p>这是引用块中的第二个段落。分块工具应当将整个引用块视为一个整体，或者根据内部段落进一步拆分。</p>
+<ul>
+<li>引用中的列表项一</li>
+<li>引用中的列表项二
+<ul>
+<li>嵌套列表项</li>
+</ul>
+</li>
+</ul>
+<pre><code class="hljs language-python"><span class="hljs-comment"># 引用中的代码块</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">test</span>():
+    <span class="hljs-keyword">return</span> <span class="hljs-string">"chunking"</span>
+</code></pre>
+</blockquote>
+<h3 id="115-列表与表格混合">11.5 列表与表格混合</h3>
+<ol>
+<li>第一项：包含一个表格
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>列1</th><th>列2</th></tr></thead><tbody><tr><td>A</td><td>B</td></tr></tbody></table>
+</li>
+<li>第二项：包含一个代码块
+<pre><code class="hljs language-js"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"list item code"</span>);
+</code></pre>
+</li>
+<li>第三项：包含一个引用
+<blockquote>
+<p>列表中的引用</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="12-其他杂项">12. 其他杂项</h2>
+<h3 id="水平分割线">水平分割线</h3>
+<hr>
+<hr>
+<hr>
+<h3 id="注释">注释</h3>
+
+<h3 id="自动链接与邮箱">自动链接与邮箱</h3>
+<p><a href="https://www.example.com/">https://www.example.com</a>
+<a href="mailto:user@example.com">user@example.com</a></p>
+<h3 id="特殊字符与转义">特殊字符与转义</h3>
+<p># 不是标题 * 不是列表
+[ 不是链接
+] 不是链接
+` 不是代码</p>
+<h3 id="内联-html-与-markdown-混合">内联 HTML 与 Markdown 混合</h3>
+<p><strong>粗体中的 <mark>高亮</mark> 文本</strong>，<em>斜体中的 <code>代码</code></em>。</p>
+<h3 id="多语言文本">多语言文本</h3>
+<p>中文段落：这是一段中文文本，用于测试中文分词和分块效果。中文没有空格，因此分块工具需要特别处理。</p>
+<p>日本語：これは日本語のテスト文書です。分かち書きがないため、チャンク分割には注意が必要です。</p>
+<p>한국어: 이것은 한국어 테스트 문서입니다. 띄어쓰기를 기준으로 분할할 수 있습니다.</p>
+<p>Emoji 段落：😀 😃 😄 😁 😆 😅 😂 🤣 😊 😇 🙂</p>
+<h3 id="长-url">长 URL</h3>
+<p><a href="https://example.com/very/long/path/that/contains/many/segments/and/query/parameters?param1=value1&amp;param2=value2&amp;param3=value3#fragment">https://example.com/very/long/path/that/contains/many/segments/and/query/parameters?param1=value1&amp;param2=value2&amp;param3=value3#fragment</a></p>
+<h3 id="结束语">结束语</h3>
+<p>本文档到此结束。希望它能帮助你测试 Markdown 渲染和分块效果。记得根据实际解析器的支持情况调整测试用例。</p>
+<section data-footnotes="" class="footnotes"><h2 class="sr-only" id="footnote-label">Footnotes</h2>
+<ol>
+<li id="user-content-fn-1">
+<p>这是脚注 1 的内容。 <a href="http://localhost:5173/#user-content-fnref-1" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-note">
+<p>这是命名脚注的内容。 <a href="http://localhost:5173/#user-content-fnref-note" data-footnote-backref="" aria-label="Back to reference 2" class="data-footnote-backref">↩</a></p>
+</li>
+</ol>
+</section></div></div>
+    <script type="module" src="./v3 sanitize (e6df9e7)_files/main.tsx"></script>
+  
+
+</body></html>

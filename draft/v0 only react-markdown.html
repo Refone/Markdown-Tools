@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)http://localhost:5173/#1-%E6%A0%87%E9%A2%98%E5%B1%82%E7%BA%A7 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="module">import { injectIntoGlobalHook } from "/@react-refresh";
+injectIntoGlobalHook(window);
+window.$RefreshReg$ = () => {};
+window.$RefreshSig$ = () => (type) => type;</script>
+
+    <script type="module" src="./v0 only react-markdown_files/client"></script>
+
+    
+    <link rel="icon" type="image/svg+xml" href="http://localhost:5173/favicon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>markdown-splitter</title>
+  <style type="text/css" data-vite-dev-id="/Users/refone/Coding/Markdown-Tools/src/index.css">/* ==========================================================================
+   全局重置。注意：Vite 模板自带的 index.css 会把页面当成「宣传页」来排版
+   （#root 固定 1126px、h1 56px、p{margin:0}、code 变成 inline-flex…），
+   那些规则会和 Markdown 自己的排版打架，所以这里清成了最小的一套。
+   ========================================================================== */
+
+:root {
+  --text: #1f2328;
+  --muted: #6b6375;
+  --bg: #ffffff;
+  --border: #e5e4e7;
+  --code-bg: #f4f3ec;
+  --link: #6d28d9;
+
+  font-family: system-ui, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #e6e6ea;
+    --muted: #9ca3af;
+    --bg: #16171d;
+    --border: #2e303a;
+    --code-bg: #1f2028;
+    --link: #c084fc;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+</style><style type="text/css" data-vite-dev-id="/Users/refone/Coding/Markdown-Tools/src/App.css">/* ==========================================================================
+   这里只有「让渲染结果好读」的样式，跟 markdown 的解析逻辑无关。
+   颜色统一走 index.css 里的 CSS 变量，所以深浅色主题自动适配。
+   ========================================================================== */
+
+.page {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 40px 24px 96px;
+}
+
+/* 标题 */
+.page h1,
+.page h2,
+.page h3,
+.page h4,
+.page h5,
+.page h6 {
+  margin: 1.6em 0 0.6em;
+  line-height: 1.3;
+}
+
+.page h1 {
+  font-size: 1.9em;
+}
+
+.page h2 {
+  font-size: 1.5em;
+}
+
+.page h3 {
+  font-size: 1.2em;
+}
+
+/* 段落、列表、引用、代码块之间的间距 */
+.page p,
+.page ul,
+.page ol,
+.page blockquote,
+.page pre {
+  margin: 0 0 1em;
+}
+
+.page ul,
+.page ol {
+  padding-left: 1.5em;
+}
+
+.page a {
+  color: var(--link);
+}
+
+.page blockquote {
+  margin-inline: 0;
+  padding-left: 1em;
+  border-left: 3px solid var(--border);
+  color: var(--muted);
+}
+
+.page blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+/* 行内代码与代码块 */
+.page code {
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  background: var(--code-bg);
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.9em;
+}
+
+.page pre {
+  padding: 14px 16px;
+  border-radius: 8px;
+  background: var(--code-bg);
+  overflow-x: auto;
+}
+
+.page pre code {
+  padding: 0;
+  background: none;
+  font-size: 0.875em;
+}
+
+.page img {
+  max-width: 100%;
+}
+
+.page hr {
+  margin: 2em 0;
+  border: 0;
+  border-top: 1px solid var(--border);
+}
+</style></head>
+  <body>
+    <div id="root"><div class="page"><hr>
+<h2>title: Markdown 渲染与切分测试文档
+author: Test Generator
+date: 2026-10-01
+tags: [markdown, test, chunking, rendering]
+description: 这是一个用于测试各种 Markdown 解析器和分块工具的综合性文档。</h2>
+<h1>Markdown 渲染与切分测试文档</h1>
+<blockquote>
+<p>本文档旨在覆盖尽可能多的 Markdown 语法特性，用于测试渲染解析和 chunk 切分效果。
+包含：标题、段落、强调、列表、表格、代码块、引用、链接、图片、HTML、脚注、数学公式等。</p>
+</blockquote>
+<h2>目录</h2>
+<ul>
+<li><a href="http://localhost:5173/#1-%E6%A0%87%E9%A2%98%E5%B1%82%E7%BA%A7">1. 标题层级</a></li>
+<li><a href="http://localhost:5173/#2-%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F">2. 文本格式</a></li>
+<li><a href="http://localhost:5173/#3-%E5%88%97%E8%A1%A8">3. 列表</a></li>
+<li><a href="http://localhost:5173/#4-%E9%93%BE%E6%8E%A5%E4%B8%8E%E5%9B%BE%E7%89%87">4. 链接与图片</a></li>
+<li><a href="http://localhost:5173/#5-%E4%BB%A3%E7%A0%81">5. 代码</a></li>
+<li><a href="http://localhost:5173/#6-%E8%A1%A8%E6%A0%BC">6. 表格</a></li>
+<li><a href="http://localhost:5173/#7-%E5%BC%95%E7%94%A8">7. 引用</a></li>
+<li><a href="http://localhost:5173/#8-html-%E4%B8%8E%E7%89%B9%E6%AE%8A%E6%A0%87%E7%AD%BE">8. HTML 与特殊标签</a></li>
+<li><a href="http://localhost:5173/#9-%E8%84%9A%E6%B3%A8%E4%B8%8E%E5%AE%9A%E4%B9%89%E5%88%97%E8%A1%A8">9. 脚注与定义列表</a></li>
+<li><a href="http://localhost:5173/#10-%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F">10. 数学公式</a></li>
+<li><a href="http://localhost:5173/#11-%E9%95%BF%E6%96%87%E6%9C%AC%E4%B8%8E%E5%88%87%E5%88%86%E6%B5%8B%E8%AF%95">11. 长文本与切分测试</a></li>
+<li><a href="http://localhost:5173/#12-%E5%85%B6%E4%BB%96%E6%9D%82%E9%A1%B9">12. 其他杂项</a></li>
+</ul>
+<hr>
+<h2>1. 标题层级</h2>
+<h1>H1 一级标题</h1>
+<h2>H2 二级标题</h2>
+<h3>H3 三级标题</h3>
+<h4>H4 四级标题</h4>
+<h5>H5 五级标题</h5>
+<h6>H6 六级标题</h6>
+<h2>2. 文本格式</h2>
+<p>普通段落文本。<em>斜体</em>，<strong>粗体</strong>，<strong><em>粗斜体</em></strong>，~~删除线~~，<code>行内代码</code>。</p>
+<p>也可以使用 HTML 标签：&lt;u&gt;下划线&lt;/u&gt;，&lt;mark&gt;高亮&lt;/mark&gt;，&lt;kbd&gt;Ctrl&lt;/kbd&gt; + &lt;kbd&gt;C&lt;/kbd&gt;，H&lt;sub&gt;2&lt;/sub&gt;O，x&lt;sup&gt;2&lt;/sup&gt;。</p>
+<p>转义字符：*不是斜体*，`不是代码`，[不是链接]。</p>
+<p>Emoji：:smile: :rocket: :tada: :+1: （部分解析器支持）。</p>
+<h2>3. 列表</h2>
+<h3>无序列表</h3>
+<ul>
+<li>项目一</li>
+<li>项目二
+<ul>
+<li>嵌套项目 A</li>
+<li>嵌套项目 B
+<ul>
+<li>更深嵌套</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>项目三</li>
+</ul>
+<h3>有序列表</h3>
+<ol>
+<li>第一项</li>
+<li>第二项
+<ol>
+<li>子项 2.1</li>
+<li>子项 2.2</li>
+</ol>
+</li>
+<li>第三项</li>
+</ol>
+<h3>混合列表</h3>
+<ol>
+<li>有序第一项
+<ul>
+<li>无序子项</li>
+<li>另一个无序子项</li>
+</ul>
+</li>
+<li>有序第二项
+<ol>
+<li>有序子项</li>
+<li>另一个有序子项</li>
+</ol>
+</li>
+</ol>
+<h3>任务列表</h3>
+<ul>
+<li>[x] 已完成任务</li>
+<li>[ ] 未完成任务</li>
+<li>[ ] 另一个未完成任务
+<ul>
+<li>[x] 子任务已完成</li>
+<li>[ ] 子任务未完成</li>
+</ul>
+</li>
+</ul>
+<h2>4. 链接与图片</h2>
+<h3>行内链接</h3>
+<p><a href="https://example.com/">这是一个行内链接</a></p>
+<p><a href="https://example.com/" title="链接标题">带标题的链接</a></p>
+<h3>引用链接</h3>
+<p><a href="https://example.com/ref1" title="引用链接标题">引用链接</a></p>
+<h3>自动链接</h3>
+<p><a href="https://example.com/">https://example.com</a></p>
+<p><a href="mailto:test@example.com">mailto:test@example.com</a></p>
+<h3>图片</h3>
+<p><img alt="替代文本" title="图片标题" src="./v0 only react-markdown_files/150"></p>
+<p><img alt="引用图片" title="引用图片标题" src="./v0 only react-markdown_files/150"></p>
+<h2>5. 代码</h2>
+<p>行内代码：<code>const x = 1;</code></p>
+<h3>JavaScript</h3>
+<pre><code class="language-javascript">function greet(name) {
+  console.log(`Hello, ${name}!`);
+}
+greet("World");
+</code></pre>
+<h3>TypeScript</h3>
+<pre><code class="language-typescript">interface User {
+  id: number;
+  name: string;
+}
+
+const user: User = { id: 1, name: "Alice" };
+console.log(user);
+</code></pre>
+<h3>Python</h3>
+<pre><code class="language-python">def fibonacci(n):
+    a, b = 0, 1
+    for _ in range(n):
+        yield a
+        a, b = b, a + b
+
+print(list(fibonacci(10)))
+</code></pre>
+<h3>Bash</h3>
+<pre><code class="language-bash">#!/bin/bash
+echo "Hello, World!"
+for i in {1..5}; do
+  echo "Number: $i"
+done
+</code></pre>
+<h3>JSON</h3>
+<pre><code class="language-json">{
+  "name": "test",
+  "version": "1.0.0",
+  "dependencies": {
+    "react": "^18.0.0"
+  }
+}
+</code></pre>
+<h3>HTML</h3>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8" /&gt;
+    &lt;title&gt;Test&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Hello&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3>CSS</h3>
+<pre><code class="language-css">body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+}
+</code></pre>
+<h3>无语言代码块</h3>
+<pre><code>纯文本代码块
+没有语法高亮
+</code></pre>
+<h2>6. 表格</h2>
+<p>| 左对齐     |  居中对齐  |     右对齐 |
+| :--------- | :--------: | ---------: |
+| 单元格     |   单元格   |     单元格 |
+| 内容       |    内容    |       内容 |
+| 长文本内容 | 长文本内容 | 长文本内容 |</p>
+<p>| 表头1 | 表头2 | 表头3 |
+| ----- | ----- | ----- |
+| A     | B     | C     |
+| D     | E     | F     |</p>
+<h2>7. 引用</h2>
+<blockquote>
+<p>这是一个单层引用。
+可以有多行。</p>
+<blockquote>
+<p>这是嵌套引用。
+嵌套引用可以包含 <strong>粗体</strong> 和 <code>代码</code>。</p>
+</blockquote>
+<p>回到第一层。</p>
+</blockquote>
+<blockquote>
+<h3>引用中的标题</h3>
+<ul>
+<li>引用中的列表</li>
+<li>列表项二</li>
+</ul>
+<pre><code class="language-js">console.log("引用中的代码块");
+</code></pre>
+</blockquote>
+<h2>8. HTML 与特殊标签</h2>
+&lt;div style="border: 1px solid red; padding: 10px;"&gt;
+  这是一个 HTML div 块。
+&lt;/div&gt;
+&lt;details&gt;
+  &lt;summary&gt;点击展开详情&lt;/summary&gt;
+  这里是隐藏的内容。支持 **Markdown** 吗？通常不支持，但可以包含 HTML。
+&lt;/details&gt;
+&lt;p align="center"&gt;居中的 HTML 段落&lt;/p&gt;
+<p>&lt;abbr title="HyperText Markup Language"&gt;HTML&lt;/abbr&gt;</p>
+<h2>9. 脚注与定义列表</h2>
+<p>这是一个带有脚注的句子[^1]。这是另一个脚注<a href="http://localhost:5173/%E8%BF%99%E6%98%AF%E5%91%BD%E5%90%8D%E8%84%9A%E6%B3%A8%E7%9A%84%E5%86%85%E5%AE%B9%E3%80%82">^note</a>。</p>
+<p>[^1]: 这是脚注 1 的内容。</p>
+<p>定义列表（部分解析器支持）：</p>
+<p>术语 1
+: 定义 1</p>
+<p>术语 2
+: 定义 2
+: 另一个定义</p>
+<h2>10. 数学公式</h2>
+<p>行内公式：$E = mc^2$。</p>
+<p>块级公式：</p>
+<p>$$
+\int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}
+$$</p>
+<p>多行公式：</p>
+<p>$$
+\begin{aligned}
+a &amp;= b + c \
+d &amp;= e + f
+\end{aligned}
+$$</p>
+<h2>11. 长文本与切分测试</h2>
+<h3>11.1 段落一</h3>
+<p>在 Markdown 切分测试中，长段落是检验分块算法的重要素材。一个优秀的分块策略应当能够识别语义边界，例如标题、段落、列表、代码块等，而不是简单地在固定字符数处截断。本段文字旨在提供足够长的连续文本，以便观察切分工具是否会在句子中间断开，或者是否能够保留完整的语义单元。我们重复一些内容来增加长度：Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档，然后转换成有效的 HTML 文档。Markdown 由 John Gruber 于 2004 年创造，如今已成为世界上最流行的标记语言之一。它的设计哲学是“易读易写”，让文档在源文本状态下也具有可读性。</p>
+<h3>11.2 段落二</h3>
+<p>分块（chunking）是构建检索增强生成（RAG）系统时的关键步骤。常见的分块方法包括固定大小分块、基于句子的分块、基于段落的分块、递归分块等。对于 Markdown 文档，理想的分块应该尊重文档结构：每个标题及其下属内容可以作为一个块，代码块和表格不应被拆分，列表项应保持完整。本段继续填充文字，以确保总长度足够触发分块逻辑。我们还可以加入一些重复的句子来增加 token 数量：Markdown 支持多种扩展语法，如表格、脚注、任务列表、数学公式等。不同的解析器对这些扩展的支持程度不同，因此测试文档需要覆盖尽可能多的语法变体。</p>
+<h3>11.3 段落三</h3>
+<p>在实际应用中，分块大小通常根据嵌入模型的上下文窗口来确定。例如，对于 512 token 的模型，块大小可能在 200-400 token 之间，并保留一定的重叠。重叠有助于保持上下文连贯性，避免因截断而丢失信息。本段继续提供文本，以便测试工具如何处理长段落。我们还可以加入一些特殊字符：!@#$%^&amp;*()_+-=[]{}|;':",.&lt;&gt;/?`~，以及 Unicode 字符：你好，世界！こんにちは、世界！안녕하세요, 세계! 🌍🚀。</p>
+<h3>11.4 嵌套结构测试</h3>
+<blockquote>
+<p>引用块中的长文本：
+这是一段很长的引用文本，用于测试分块工具是否能够正确处理引用块内部的换行和段落。引用块可以包含多个段落，每个段落之间用空行分隔。</p>
+<p>这是引用块中的第二个段落。分块工具应当将整个引用块视为一个整体，或者根据内部段落进一步拆分。</p>
+<ul>
+<li>引用中的列表项一</li>
+<li>引用中的列表项二
+<ul>
+<li>嵌套列表项</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-python"># 引用中的代码块
+def test():
+    return "chunking"
+</code></pre>
+</blockquote>
+<h3>11.5 列表与表格混合</h3>
+<ol>
+<li>第一项：包含一个表格
+| 列1 | 列2 |
+| --- | --- |
+| A | B |</li>
+<li>第二项：包含一个代码块
+<pre><code class="language-js">console.log("list item code");
+</code></pre>
+</li>
+<li>第三项：包含一个引用
+<blockquote>
+<p>列表中的引用</p>
+</blockquote>
+</li>
+</ol>
+<h2>12. 其他杂项</h2>
+<h3>水平分割线</h3>
+<hr>
+<hr>
+<hr>
+<h3>注释</h3>
+&lt;!-- 这是一个 HTML 注释，通常不会渲染 --&gt;
+<h3>自动链接与邮箱</h3>
+<p><a href="https://www.example.com/">https://www.example.com</a>
+<a href="mailto:user@example.com">user@example.com</a></p>
+<h3>特殊字符与转义</h3>
+<p># 不是标题 * 不是列表
+[ 不是链接
+] 不是链接
+` 不是代码</p>
+<h3>内联 HTML 与 Markdown 混合</h3>
+<p><strong>粗体中的 &lt;mark&gt;高亮&lt;/mark&gt; 文本</strong>，<em>斜体中的 <code>代码</code></em>。</p>
+<h3>多语言文本</h3>
+<p>中文段落：这是一段中文文本，用于测试中文分词和分块效果。中文没有空格，因此分块工具需要特别处理。</p>
+<p>日本語：これは日本語のテスト文書です。分かち書きがないため、チャンク分割には注意が必要です。</p>
+<p>한국어: 이것은 한국어 테스트 문서입니다. 띄어쓰기를 기준으로 분할할 수 있습니다.</p>
+<p>Emoji 段落：😀 😃 😄 😁 😆 😅 😂 🤣 😊 😇 🙂</p>
+<h3>长 URL</h3>
+<p>https://example.com/very/long/path/that/contains/many/segments/and/query/parameters?param1=value1&amp;param2=value2&amp;param3=value3#fragment</p>
+<h3>结束语</h3>
+<p>本文档到此结束。希望它能帮助你测试 Markdown 渲染和分块效果。记得根据实际解析器的支持情况调整测试用例。</p></div></div>
+    <script type="module" src="./v0 only react-markdown_files/main.tsx"></script>
+  
+
+</body></html>
