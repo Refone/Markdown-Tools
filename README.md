@@ -10,8 +10,8 @@ npm run dev
 ## 渲染管线
 
 ```
-asset/sample.md
-   │  Vite 的 ?raw（构建时把文件内容读成字符串）
+本地 .md 文件
+   │  <input type="file"> + File.text()（在浏览器里读成字符串，内容不上传）
    ▼
 string ──remark 段──▶ mdast ──转译──▶ hast ──rehype 段──▶ React 元素 ──▶ DOM
         语法识别                     元素改造
@@ -20,7 +20,8 @@ string ──remark 段──▶ mdast ──转译──▶ hast ──rehype �
 - **`remark-*` 改语法树**：决定 markdown 里哪些写法能被识别（表格、公式、frontmatter…）
 - **`rehype-*` 改元素树**：决定识别出来的东西渲染成什么元素
 - 两段是管道里先后两个阶段，不可互换。个别能力必须跨段成对：`remark-math` 识别公式，`rehype-katex` 渲染公式
-- `?raw` 是 **Vite** 的能力（不是 react-markdown 的）；react-markdown 产出的是 React 元素而不是 HTML 字符串，全程没有 `innerHTML`
+- react-markdown 产出的是 React 元素而不是 HTML 字符串，全程没有 `innerHTML`
+- 浏览器出于安全**不暴露文件的本地绝对路径**：顶栏显示的「路径」实际是文件名（选目录时才是多级相对路径）
 
 ## 插件清单
 
@@ -84,5 +85,5 @@ CommonMark 里 `---` 只有两种身份：分割线，或**上一段的标题下
 
 ## 后续
 
-- 开放「打开任意本地文件 / 粘贴内容」后，sanitize 才真正开始干活（现在 `sample.md` 是构建期写死的可信文件）。
+- 已经支持打开任意本地文件，`rehype-sanitize` 从此开始真正干活（之前 `sample.md` 是构建期写死的可信文件）。可选再补：拖拽打开、粘贴内容、上次文件的记忆。
 - 想让 frontmatter 当数据用（标题、标签）：解析前用 `gray-matter` 抽成对象，而不是把它渲染出来。
