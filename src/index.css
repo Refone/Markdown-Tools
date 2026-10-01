@@ -10,7 +10,19 @@
   --bg: #ffffff;
   --border: #e5e4e7;
   --code-bg: #f4f3ec;
+  --surface: #f7f7f9;
   --link: #6d28d9;
+  --accent: #7c3aed;
+  --accent-bg: rgba(124, 58, 237, 0.12);
+
+  /* 代码高亮配色（highlight.js 的 token 类名） */
+  --hl-comment: #a0a1a7;
+  --hl-keyword: #a626a4;
+  --hl-string: #50a14f;
+  --hl-number: #986801;
+  --hl-function: #4078f2;
+  --hl-type: #c18401;
+  --hl-variable: #e45649;
 
   font-family: system-ui, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
   font-size: 16px;
@@ -27,7 +39,18 @@
     --bg: #16171d;
     --border: #2e303a;
     --code-bg: #1f2028;
+    --surface: #1b1d24;
     --link: #c084fc;
+    --accent: #c084fc;
+    --accent-bg: rgba(192, 132, 252, 0.16);
+
+    --hl-comment: #7f848e;
+    --hl-keyword: #c678dd;
+    --hl-string: #98c379;
+    --hl-number: #d19a66;
+    --hl-function: #61afef;
+    --hl-type: #e5c07b;
+    --hl-variable: #e06c75;
   }
 }
 

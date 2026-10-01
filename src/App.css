@@ -92,3 +92,174 @@
   border: 0;
   border-top: 1px solid var(--border);
 }
+
+/* ---------- 下面这几块样式，对应各自插件的输出 ---------- */
+
+/* remark-gfm：表格 */
+.page table {
+  margin: 0 0 1em;
+  border-collapse: collapse;
+  font-size: 0.95em;
+}
+
+.page th,
+.page td {
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+}
+
+.page th {
+  background: var(--code-bg);
+  text-align: left;
+}
+
+.page tbody tr:nth-child(2n) {
+  background: var(--surface);
+}
+
+/* remark-gfm：任务列表（- [ ] 渲染成 <ul class="contains-task-list">） */
+.page .contains-task-list {
+  padding-left: 0.2em;
+  list-style: none;
+}
+
+.page .task-list-item > input[type='checkbox'] {
+  margin-right: 0.5em;
+  vertical-align: -0.15em;
+  accent-color: var(--accent);
+}
+
+/* remark-gfm：脚注区 */
+.page .footnotes {
+  margin-top: 2.5em;
+  padding-top: 1em;
+  border-top: 1px solid var(--border);
+  font-size: 0.9em;
+  color: var(--muted);
+}
+
+.page .footnotes h2 {
+  font-size: 1em;
+  border: 0;
+}
+
+.page [data-footnote-ref] {
+  padding: 0 0.15em;
+  font-weight: 600;
+}
+
+/* rehype-raw：文档里的原生 HTML 标签 */
+.page details {
+  margin-bottom: 1em;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.page summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.page details[open] summary {
+  margin-bottom: 0.6em;
+}
+
+.page mark {
+  padding: 0.1em 0.25em;
+  border-radius: 3px;
+  background: var(--accent-bg);
+  color: var(--text);
+}
+
+.page kbd {
+  padding: 0.15em 0.45em;
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.85em;
+}
+
+/* rehype-highlight：代码高亮 token 配色（颜色值见 index.css 的 --hl-* 变量） */
+.hljs {
+  color: var(--text);
+}
+
+.hljs-comment,
+.hljs-quote,
+.hljs-meta {
+  color: var(--hl-comment);
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-doctag {
+  color: var(--hl-keyword);
+}
+
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-char.escape {
+  color: var(--hl-string);
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-attr,
+.hljs-variable.constant {
+  color: var(--hl-number);
+}
+
+.hljs-title,
+.hljs-title.function_,
+.hljs-section,
+.hljs-name {
+  color: var(--hl-function);
+}
+
+.hljs-title.class_,
+.hljs-type,
+.hljs-built_in,
+.hljs-symbol,
+.hljs-bullet {
+  color: var(--hl-type);
+}
+
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-deletion {
+  color: var(--hl-variable);
+}
+
+.hljs-property,
+.hljs-params,
+.hljs-operator,
+.hljs-punctuation,
+.hljs-subst {
+  color: var(--text);
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: 600;
+}
+
+/* rehype-katex：公式，超宽时横向滚动 */
+.page .katex {
+  font-size: 1.05em;
+}
+
+.page .katex-display {
+  margin: 1em 0;
+  padding: 2px 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}

@@ -7,6 +7,8 @@ npm install
 npm run dev
 ```
 
+> **当前进度：第 2 步已完成。** `src/App.tsx` 已经装齐全套渲染插件，`asset/sample.md` 能完整渲染（表格 / 任务列表 / 脚注 / 原生 HTML / 目录跳转 / 代码高亮 / 数学公式）。下面按步骤记录学习过程。
+
 ---
 
 ## 第 1 步：只用 react-markdown，渲染一个写死的本地文件
@@ -51,9 +53,9 @@ asset/sample.md
 
 只有 **CommonMark 标准语法**：标题、段落、强调（`*斜体*` `**粗体**`）、有序/无序列表、嵌套列表、引用（含嵌套）、链接、图片、围栏代码块（带 `language-xxx` class，但**没有**语法高亮）、行内代码、水平线、反斜杠转义、`<https://example.com>` 形式的自动链接。
 
-### 现在渲染不出来什么（实测结果，等于下一步的清单）
+### 当时渲染不出来什么（第 1 步的实测，现在这些都已解决）
 
-`asset/sample.md` 里刻意留了各种扩展语法，现在的表现是：
+`asset/sample.md` 里刻意留了各种扩展语法，第 1 步（只有 react-markdown）时的表现是：
 
 | sample.md 里的写法 | 现在的表现 | 需要补的东西 |
 | --- | --- | --- |
@@ -141,3 +143,59 @@ react-markdown 的插件分两层，**frontmatter 的命运在最早那层就定
 
 - `src/index.css` 被清成了最小的全局重置。原因：Vite 模板自带的 index.css 是按「宣传页」排的（`#root` 固定 1126px、`h1` 56px、`p{margin:0}`、`code` 变成 `inline-flex`），这些规则会和 Markdown 自己的排版打架。
 - `src/App.css` 只负责让渲染结果好读（标题间距、代码块底色…），跟解析逻辑无关，可以随意改；颜色走 `index.css` 里的 CSS 变量，所以跟随系统深浅色。
+
+---
+
+## 第 2 步：一次装齐渲染插件（把 remark 段 + rehype 段当作一步）
+
+第 1 步之后决定不再把「remark 系列 / rehype 系列」拆成两次来学，而是一次装齐、让 `sample.md` 完整渲染。**但代码里仍按管道分两层注释**，插件各自负责什么没有糊在一起。
+
+### 装了什么
+
+| 依赖 | 挂在哪段 | 解决 sample.md 里的 |
+| --- | --- | --- |
+| `remark-gfm` | remark | 表格 / 任务列表 / 删除线 / 脚注 / 自动链接 |
+| `remark-math` | remark | 把 `$…$` 和 `$$…$$` 识别成 math 节点 |
+| `rehype-raw` | rehype | 原生 HTML（`<div>`、`<details>`、`<mark>`、`<kbd>`） |
+| `rehype-slug` | rehype | 标题 `id`，让目录锚点能跳 |
+| `rehype-katex` | rehype | 把 math 节点渲染成 KaTeX 公式 |
+| `rehype-highlight` | rehype | 代码块语法高亮 |
+| `katex` | — | KaTeX 的样式/字体（`rehype-katex` 的底层依赖） |
+
+### App.tsx 关键部分
+
+```tsx
+<ReactMarkdown
+  remarkPlugins={[remarkGfm, remarkMath]}
+  // rehype 插件的顺序有意义：先 raw 让 HTML 成真元素，
+  // 再 slug 给标题加 id，再 katex 吃掉公式（否则会被后面的 highlight 误当成代码），
+  // 最后 highlight 高亮代码块。
+  rehypePlugins={[rehypeRaw, rehypeSlug, rehypeKatex, rehypeHighlight]}
+>
+  {body}
+</ReactMarkdown>
+```
+
+注意 `rehypePlugins` 数组里的**顺序**是真实约束（raw → slug → katex → highlight），这跟「remark 和 rehype 谁先装」无关 —— 那是管道结构早就定死的。
+
+### 实测 before / after（headless Chrome 读真实 DOM）
+
+| 检查项 | 第 1 步（裸 react-markdown） | 第 2 步（装齐插件） |
+| --- | --- | --- |
+| 表格 `table` | 0 | **3** |
+| 任务列表复选框 | 0 | **5**（全部 `disabled`） |
+| 删除线 `del` | 0 | **1** |
+| 脚注区 `.footnotes` | 0 | **1**（2 个引用） |
+| 原生 HTML | 源码字符串原样显示 | `<details>`×1、`<mark>`×2、`<kbd>`×2 真元素 |
+| 标题 `id` | 无 | `1-标题层级` 等全部生成，目录可跳 |
+| 代码高亮 | 无 token | **10/11 个代码块着色**（无语言那块正确跳过），106 个 token |
+| KaTeX | 原样文本 | 行内 1 + 块级 2 |
+
+控制台 warning/error 数量：**0**。
+
+### 这一步学到的
+
+1. **remark 段管「识别语法」，rehype 段管「改造元素」**：gfm 之所以是 remark 插件，是因为表格识别发生在分词阶段；raw/slug/highlight 之所以是 rehype 插件，是因为它们要改的是已经生成的 HTML 元素。
+2. **有的能力必须成对**：`remark-math` 单独装没有任何可见效果，必须配 `rehype-katex`。
+3. **顺序约束在 rehype 数组内部**：`rehypeKatex` 必须在 `rehypeHighlight` 之前，否则数学公式的 `code.language-math` 节点会被 highlighter 误当成代码。
+
